@@ -475,16 +475,16 @@
                                     <div class="playlist-art">
                                         <ul>
                                             <li>
-                                                <img src="assets/img/album-art.jpg" alt="">
+                                                <img id="playlistCover0" src="assets/img/noalbumart.png" alt="">
                                             </li>
                                             <li>
-                                                <img src="assets/img/album-art.jpg" alt="">
+                                                <img  id="playlistCover1"src="assets/img/noalbumart.png" alt="">
                                             </li>
                                             <li>
-                                                <img src="assets/img/album-art.jpg" alt="">
+                                                <img  id="playlistCover2"src="assets/img/noalbumart.png" alt="">
                                             </li>
                                             <li>
-                                                <img src="assets/img/album-art.jpg" alt="">
+                                                <img  id="playlistCover3"src="assets/img/noalbumart.png" alt="">
                                             </li>
                                         </ul>
                                     </div>
@@ -492,7 +492,7 @@
                                 <ul class="nav">
                                     <div class="playlist-header">
                                         <h1 class="pull-left"><span class="muted">Playlist: </span><i id="activePlaylistTitle"> Study </i></h1>
-                                        <!-- <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modalRenamePlaylist"><i class="material-icons">mode_edit</i></button> -->
+                                        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modalRenamePlaylist"><i class="material-icons">mode_edit</i></button>
                                         <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modalDeletePlaylist"><i class="material-icons">delete</i></button>
                                         <div class="clearfix"></div>
                                         <p id="playlistInfo">17 songs in playlist, 1 hr 14 mins.</p>
@@ -663,7 +663,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary pull-right">Rename Playlist</button>
+                <button id="renamePlaylistButton" type="button" class="btn btn-primary pull-right" data-dismiss="modal">Rename Playlist</button>
             </div>
         </div>
     </div>

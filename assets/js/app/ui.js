@@ -53,7 +53,7 @@ $(document).ready(function () {
         "oLanguage": {
             "asStripeClasses": [''],
             scrollY:        200,
-            deferRender:    true,
+            "deferRender": true,
             scroller:       true,
             "sSearch": "Filter: ",
             "sEmptyTable": "Your collection is empty. Click <a onclick=\"settings.openSettingsMenu();\" href=\"javascript:void(0);\">here</a> to configure your settings."
@@ -71,7 +71,7 @@ $(document).ready(function () {
         "oLanguage": {
             "asStripeClasses": [''],
             scrollY:        200,
-            deferRender:    true,
+            "deferRender": true,
             scroller:       true,
             "sSearch": "Filter: ",
             "sEmptyTable": "Your collection is empty. Click <a onclick=\"settings.openSettingsMenu();\" href=\"javascript:void(0);\">here</a> to configure your settings."
@@ -89,7 +89,7 @@ $(document).ready(function () {
         "oLanguage": {
             "asStripeClasses": [''],
             scrollY:        200,
-            deferRender:    true,
+            "deferRender": true,
             scroller:       true,
             "sSearch": "Filter: ",
             "sEmptyTable": "Your collection is empty. Click <a onclick=\"settings.openSettingsMenu();\" href=\"javascript:void(0);\">here</a> to configure your settings."
@@ -107,7 +107,7 @@ $(document).ready(function () {
         "oLanguage": {
             "asStripeClasses": [''],
             scrollY:        200,
-            deferRender:    true,
+            "deferRender": true,
             scroller:       true,
             "sSearch": "Filter: ",
             "sEmptyTable": "This playlist is empty, try adding some songs from your collection or search results"
@@ -121,6 +121,7 @@ $(document).ready(function () {
         ]
     });
     $('.dataTables_filter input').addClass('form-control');
+
 
 
     /* Artifically repeat rows in search result */
@@ -188,7 +189,14 @@ $(document).ready(function () {
 
     $('#nav-collection').click(function (event) {
 
-        window.activeViewPort = "collection";
+        if ($( "#collectionNavArtists" ).hasClass( "active" )) {
+            window.activeViewPort = "artist";
+        } else if ($( "#collectionNavAlbums" ).hasClass( "active" )) {
+            window.activeViewPort = "album";
+        } else {
+            window.activeViewPort = "collection";
+        }
+
         $('#discover').fadeOut($switchPageSpeed);
         $('#playlist').fadeOut($switchPageSpeed);
         $('#nav-discover').removeClass('active');
@@ -354,8 +362,8 @@ $(document).ready(function () {
     });
     aurousScript("#playlistResult").on('dblclick', 'tr', function (e) {
         e.preventDefault();
-        if (window.previousPlaylistId !== undefined) {
-            aurousScript(window.previousPlaylistId).removeClass("result-now-playing");
+        if (window.previousPlaylist !== undefined) {
+            window.previousPlaylist.removeClass("result-now-playing");
             aurousScript("#playlist-row-icon-" + window.previousPlaylistId).html("play_arrow");
         }
         var id = aurousScript(this).attr('playlist-data-id');

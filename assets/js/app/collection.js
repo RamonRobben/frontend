@@ -142,7 +142,7 @@ var songCollection = {
         var t = $('#albumTable').DataTable();
 
         t.row.add([
-            '<button class="btn btn-transparent control-show"><a href="#"><i class="material-icons">add</i></a></button> <button class="btn btn-transparent"><a href=\"#\"><i id=\"album-row-icon-{0}\" class=\"material-icons\">play_arrow<\/i><\/a></button>'.format(id),
+            '<button class="btn btn-transparent control-show"><a href="#"><i class="material-icons">add</i></a></button> <button class="btn btn-transparent"><a href=\"#\"><i id=\"album-row-icon-{0}\" class=\"material-icons\">play_arrow<\/i><\/a></button><button class="btn btn-transparent control-show"><a href="#" data-jq-dropdown="#dropdown"><i class="material-icons">more_horiz</i></a></button>'.format(id),
             title,
             artist,
             album,
