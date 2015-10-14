@@ -952,7 +952,8 @@ body.modal-open .viewport {
     margin-top: 15px
 }
 .modal#modalSettings .modal-content .profile-picture {
-    height: 96px
+	height: 100%;
+    width: 100%
 }
 .modal#modalSettings .modal-content .btn-choose {
     margin-top: 15px
