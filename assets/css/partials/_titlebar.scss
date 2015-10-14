@@ -58,6 +58,22 @@
     }
 }
 
+#titlebar.left {
+    .navbar-brand {
+        position: absolute;
+        right: 0;
+    }
+
+    .btn-window {
+        position: absolute;
+        left: -15px;
+    }
+
+    .btn-window li {
+        float:right;
+    }
+}
+
 @media screen and(max-width: 767px) {
     #titlebar {
         .navbar-nav {

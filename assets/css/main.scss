@@ -86,7 +86,7 @@ li.muted a {
     border-radius: 6px;
 
     .form-control {
-        background-color: #323138;
+        background-color: lighten($main, 10%);
         border: 1px solid rgba(white, 0);
         font-weight: 400;
         box-shadow: none;
@@ -95,7 +95,7 @@ li.muted a {
         transition: all 0.1s;
 
         &:focus {
-            background-color: #49494e;
+            background-color: lighten($main, 15%);
             border-color: rgba(139, 96, 232, 0);
             outline: 0;
             box-shadow: none;
@@ -104,12 +104,12 @@ li.muted a {
     }
 
     .btn-primary {
-        background-color: #323138;
+        background-color: lighten($main, 10%);
         border-color: rgba(139, 96, 232, 0);
         transition: all 0.1s;
         height: 40px;
         padding: 10px 15px;
-        color: #999;
+        color: rgba(white, 0.5);
 
         &:hover,
         &:focus {
@@ -123,9 +123,6 @@ li.muted a {
 .input-group {
     border-radius: 6px;
 }
-
-
-
 
 #discover {
     padding-top: 55px;

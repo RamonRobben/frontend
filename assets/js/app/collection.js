@@ -60,7 +60,7 @@ var songCollection = {
     sortByArtist: function (artist) {
         if (songCollection.cache != null) {
             var t = $('#artistTable').DataTable();
-            t.clear();
+            t.clear().draw();
             var data = songCollection.cache;
             for (var i = 0; i < data.results.length; i++) {
                 var obj = data.results[i];
@@ -90,7 +90,7 @@ var songCollection = {
     sortByAlbum: function (album) {
         if (songCollection.cache != null) {
             var t = $('#albumTable').DataTable();
-            t.clear();
+            t.clear().draw();
             var data = songCollection.cache;
             for (var i = 0; i < data.results.length; i++) {
                 var obj = data.results[i];
@@ -142,7 +142,7 @@ var songCollection = {
         var t = $('#albumTable').DataTable();
 
         t.row.add([
-            '<button class="btn btn-transparent control-show"><a href="#"><i class="material-icons">add</i></a></button> <button class="btn btn-transparent"><a href=\"#\"><i id=\"album-row-icon-{0}\" class=\"material-icons\">play_arrow<\/i><\/a></button>'.format(id),
+            '<button class="btn btn-transparent control-show"><a href="#"><i class="material-icons">add</i></a></button> <button class="btn btn-transparent"><a href=\"#\"><i id=\"album-row-icon-{0}\" class=\"material-icons\">play_arrow<\/i><\/a></button><button class="btn btn-transparent control-show"><a href="#" data-jq-dropdown="#dropdown"><i class="material-icons">more_horiz</i></a></button>'.format(id),
             title,
             artist,
             album,
@@ -163,7 +163,7 @@ var songCollection = {
         var t = $('#artistTable').DataTable();
 
         t.row.add([
-            '<button class="btn btn-transparent control-show"><a href="#"><i class="material-icons">add</i></a></button> <button class="btn btn-transparent"><a href=\"#\"><i id=\"artist-row-icon-{0}\" class=\"material-icons\">play_arrow<\/i><\/a></button>'.format(id),
+            '<button class="btn btn-transparent control-show"><a href="#"><i class="material-icons">add</i></a></button> <button class="btn btn-transparent"><a href=\"#\"><i id=\"artist-row-icon-{0}\" class=\"material-icons\">play_arrow<\/i><\/a></button><button class="btn btn-transparent control-show"><a href="#" data-jq-dropdown="#dropdown"><i class="material-icons">more_horiz</i></a></button>'.format(id),
             title,
             artist,
             album,
@@ -246,7 +246,7 @@ var songCollection = {
     appendLocalCollection: function (data) {
         songCollection.cache = data;
         var t = $('#collectionResult').DataTable();
-        t.clear();
+        t.clear().draw();
         for (var i = 0; i < data.results.length; i++) {
             var obj = data.results[i];
             var songId = obj.id;
@@ -278,7 +278,7 @@ var songCollection = {
         var t = $('#collectionResult').DataTable();
 
         t.row.add([
-            '<button class="btn btn-transparent control-show"><a href="#"><i class="material-icons">add</i></a></button> <button class="btn btn-transparent"><a href=\"#\"><i id=\"collection-row-icon-{0}\" class=\"material-icons\">play_arrow<\/i><\/a></button>'.format(id),
+            '<button class="btn btn-transparent control-show"><a href="#"><i class="material-icons">add</i></a></button> <button class="btn btn-transparent"><a href=\"#\"><i id=\"collection-row-icon-{0}\" class=\"material-icons\">play_arrow<\/i><\/a></button><button class="btn btn-transparent control-show"><a href="#" data-jq-dropdown="#dropdown"><i class="material-icons">more_horiz</i></a></button>'.format(id),
             title,
             artist,
             album,
@@ -302,7 +302,7 @@ var songCollection = {
         var t = $('#collectionResult').DataTable();
 
         t.row.add([
-            '<button class="btn btn-transparent control-show"><a href="#"><i class="material-icons">add</i></a></button> <button class="btn btn-transparent"><a href=\"#\"><i id=\"collection-row-icon-{0}\" class=\"material-icons\">play_arrow<\/i><\/a></button>'.format(id),
+            '<button class="btn btn-transparent control-show"><a href="#"><i class="material-icons">add</i></a></button> <button class="btn btn-transparent"><a href=\"#\"><i id=\"collection-row-icon-{0}\" class=\"material-icons\">play_arrow<\/i><\/a></button><button class="btn btn-transparent control-show"><a href="#" data-jq-dropdown="#dropdown"><i class="material-icons">more_horiz</i></a></button>'.format(id),
             title,
             artist,
             album,

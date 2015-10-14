@@ -43,6 +43,9 @@ aurousScript(function() {
             case "album":
                 aurousScript.player.playNextAlbum();
                 break;
+            case "playlist":
+                aurousScript.player.playNextPlaylist();
+                break;
             default:
                 text = "Looking forward to the Weekend";
         }
@@ -61,6 +64,9 @@ aurousScript(function() {
                 break;
             case "album":
                 aurousScript.player.playLastAlbum();
+                break;
+            case "playlist":
+                aurousScript.player.playLastPlaylist();
                 break;
             default:
                 text = "Looking forward to the Weekend";
@@ -152,6 +158,29 @@ aurousScript(function() {
         aurousScript("#playerPlay").hide();
         window.previousCollectionRow = aurousScript(nextRow);
         window.previousCollectId = id;
+    };
+    aurousScript.player.playNextPlaylist = function() {
+        if (window.previousPlaylist !== undefined) {
+            window.previousPlaylist.removeClass("result-now-playing");
+            aurousScript("#playlist-row-icon-" + window.previousPlaylistId).html("play_arrow");
+        }
+        var nextRow = $(window.previousPlaylist).closest('tr').next('tr');
+        window.previousPlaylist.removeClass("result-now-playing");
+        aurousScript("#playlist-row-icon-" + window.previousPlaylistId).html("play_arrow");
+        var parent = nextRow.closest('tr');
+        var id = parent.attr('playlist-data-id');
+        window.currentCollectionId = id;
+        var albumArt = nextRow.attr('playlist-data-album-art');
+        aurousScript("#playlist-row-icon-" + id).html("pause");
+        nextRow.addClass("result-now-playing");
+        var url = parent.attr('playlist-data-value');
+        var artist = parent.attr('playlist-data-artist-name');
+        var song = parent.attr('playlist-data-song-name');
+        aurousScript.player.changeMedia(song, artist, albumArt, url);
+        aurousScript("#playerPause").show();
+        aurousScript("#playerPlay").hide();
+        window.previousPlaylist = aurousScript(nextRow);
+        window.previousPlaylistId = id;
     };
     aurousScript.player.playNextArtist = function() {
 
@@ -248,6 +277,28 @@ aurousScript(function() {
         window.previousCollectionRow = aurousScript(lastRow);
         window.previousCollectId = id;
     };
+    aurousScript.player.playLastPlaylist = function() {
+        if (window.previousPlaylist !== undefined) {
+            window.previousPlaylist.removeClass("result-now-playing");
+            aurousScript("#playlist-row-icon-" + window.previousPlaylistId).html("play_arrow");
+        }
+        var lastRow = $(window.previousPlaylist).closest('tr').prev('tr');
+        window.previousPlaylist.removeClass("result-now-playing");
+        aurousScript("#playlist-row-icon-" + window.previousPlaylistId).html("play_arrow");
+        var parent = lastRow.closest('tr');
+        var id = parent.attr('playlist-data-id');
+        var albumArt = lastRow.attr('playlist-data-album-art');
+        aurousScript("#playlist-row-icon-" + id).html("pause");
+        lastRow.addClass("result-now-playing");
+        var url = parent.attr('playlist-data-value');
+        var artist = parent.attr('playlist-data-artist-name');
+        var song = parent.attr('playlist-data-song-name');
+        aurousScript.player.changeMedia(song, artist, albumArt, url);
+        aurousScript("#playerPause").show();
+        aurousScript("#playerPlay").hide();
+        window.previousPlaylist = aurousScript(lastRow);
+        window.previousPlaylistId = id;
+    };
     aurousScript.player.playLastCollection = function() {
         var lastRow = $(window.previousCollectionRow).closest('tr').prev('tr');
         window.previousCollectionRow.removeClass("result-now-playing");
@@ -307,6 +358,10 @@ aurousScript(function() {
         if (window.activeViewPort == "collection" || window.activeViewPort == "artist" || window.activeViewPort == "album") {
             if (albumArt == "assets/img/noalbumart.png") {
                 albumInfo.fetchTrackArt( window.currentCollectionId, title, artist);
+            }
+        } else if (window.activeViewPort == "playlist") {
+            if (albumArt == "assets/img/noalbumart.png") {
+                albumInfo.fetchTrackArt( window.currentPlaylistId, title, artist);
             }
         }
 

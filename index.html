@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Aurous</title>
-
+    <meta charset="ISO-8859-1">
     <link href="assets/css/vendor/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/vendor/font-awesome.min.css" rel="stylesheet">
     <link href="assets/css/vendor/material-icons.css" rel="stylesheet">
@@ -15,6 +15,7 @@
     <link href="assets/css/vendor/alertify.core.css" rel="stylesheet">
     <link href="assets/css/vendor/dataTables.bootstrap.css" rel="stylesheet">
     <link href="assets/css/vendor/bootstrap-select.min.css" rel="stylesheet">
+    <link href="assets/css/vendor/jquery.dropdown.min.css" rel="stylesheet">
     <link href="assets/fonts/fira.css" rel="stylesheet">
     <link href="assets/css/main.css" rel="stylesheet">
     <link href="assets/css/override-scss.css" rel="stylesheet">
@@ -49,25 +50,19 @@
                 </li>
 
             </ul>
-            <ul class="nav nav-playlist">
+			
+            <ul id="playlistContainer" class="nav nav-playlist">
+			  <li class="nav-title"><div class="pull-right"><a href="#"><i class="material-icons">chevron_right</i></a></div>PLAYLIST</li>
 
-                <li class="nav-title">
-                    <!--							<div class="pull-right"><a href="#"><i class="material-icons">chevron_right</i></a></div>-->
-                </li>
-
-                <!--	<li class="playlist-study"><a href="#"><i class="material-icons">play_arrow</i><span>Study</span></a></li>
-                    <li><a href="#"><i class="material-icons">play_arrow</i><span>Relax</span></a></li>
-                    <!--
-<li><a href="#"><i class="material-icons">play_arrow</i><span>Workout</span></a></li>
-<li id="navPlaylistNowPlaying"><a href="#"><i class="material-icons">pause</i><span>Pink Floyd</span></a></li>
--->
-                <!--<li><a href="#"><i class="material-icons">play_arrow</i><span>Pink Floyd</span></a></li>
-                <li><a href="#"><i class="material-icons">play_arrow</i><span>Sleep</span></a></li>
-                <li><a href="#"><i class="material-icons">play_arrow</i><span>Night Rider</span></a></li>
-                <li><a href="#"><i class="material-icons">play_arrow</i><span>All Things Post</span></a></li>
+				<li class="playlist-study"><a href="#"><i class="material-icons">play_arrow</i><span>Study</span></a></li>
+				 <li class="playlist-study"><a href="#"><i class="material-icons">play_arrow</i><span>Sample</span></a></li>
+			</ul>
+			<ul class="nav nav-playlist">
+                <!-- <li><a href="#"><i class="material-icons">play_arrow</i><span>Night Rider</span></a></li>-->
                 <li class="addNewPlaylist"><a href="#" data-toggle="modal" data-target="#modalAddPlaylist"><i class="material-icons">add</i><span>New playlist</span></a></li>
+				</div>
 
-            </ul>-->
+            </ul>
         </div>
 
         <!-- Player -->
@@ -129,10 +124,11 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <!--
+<!--
                                     <tr data-song-name="Get Away" data-artist-name="CHVRCHES" data-album-art="https://i.imgur.com/B2dOAgV.png" data-id="0" data-value="http://s19.pleer.com/0042fbbee67d1a986f27c8e5cc01ac65d2aff50b70f6b1adc52479a3896b905dd46d90672153f492062df888685e8a5414bb43750095125a93/4835f25552.mp3">
                                     <td class="result-control">
                                     <button class="btn btn-transparent control-show"><a href="#"><i class="material-icons">add</i></a></button>
+                                        <button class="btn btn-transparent control-show"><a href="#" data-jq-dropdown="#dropdown"><i class="material-icons">more_horiz</i></a></button>
                                     <button class="btn btn-transparent"><a href="#"><i class="material-icons">pause</i></a></button>
                                     </td>
                                     <td>Get Away</td>
@@ -140,7 +136,7 @@
                                     <td>Every Open Eye</td>
                                     <td>4:39</td>
                                     </tr>
-                                    -->
+-->
                                     </tbody>
                                 </table>
                             </div>
@@ -152,13 +148,6 @@
                                 </div>
                                 <div>
                                     <ul id="artistSortList" class="art-list">
-                                        <a href=""  onclick='songCollection.sortByArtist("Frank Ocean", "null");' class="cd-btn">
-                                            <li>
-                                                <img src="http://img2-ak.lst.fm/i/u/91c4be7628fe4167b025c07ff8a8ec17.png" />
-                                                <h3>Frank Ocean</h3>
-                                                <p>18 songs</p>
-                                            </li>
-                                        </a>
                                         <div class="toggle-panel">
                                             <a href="#panelArtists">
                                                 <li>
@@ -326,6 +315,7 @@
                                             <tr data-song-name="Get Away" data-artist-name="CHVRCHES" data-album-art="https://i.imgur.com/B2dOAgV.png" data-id="0" data-value="http://s19.pleer.com/0042fbbee67d1a986f27c8e5cc01ac65d2aff50b70f6b1adc52479a3896b905dd46d90672153f492062df888685e8a5414bb43750095125a93/4835f25552.mp3">
                                             <td class="result-control">
                                             <button class="btn btn-transparent control-show"><a href="#"><i class="material-icons">add</i></a></button>
+                                            <button class="btn btn-transparent control-show"><a href="#" data-jq-dropdown="#dropdown"><i class="material-icons">more_horiz</i></a></button>
                                             <button class="btn btn-transparent"><a href="#"><i class="material-icons">pause</i></a></button>
                                             </td>
                                             <td>Get Away</td>
@@ -368,6 +358,7 @@
 <tr data-song-name="Get Away" data-artist-name="CHVRCHES" data-album-art="https://i.imgur.com/B2dOAgV.png" data-id="0" data-value="http://s19.pleer.com/0042fbbee67d1a986f27c8e5cc01ac65d2aff50b70f6b1adc52479a3896b905dd46d90672153f492062df888685e8a5414bb43750095125a93/4835f25552.mp3">
 <td class="result-control">
 <button class="btn btn-transparent control-show"><a href="#"><i class="material-icons">add</i></a></button>
+<button class="btn btn-transparent control-show"><a href="#" data-jq-dropdown="#dropdown"><i class="material-icons">more_horiz</i></a></button>
 <button class="btn btn-transparent"><a href="#"><i class="material-icons">pause</i></a></button>
 </td>
 <td>Get Away</td>
@@ -416,6 +407,7 @@
                                             <td><img src="https://i1.sndcdn.com//artworks-000115464710-6br5gk-t500x500.jpg" alt=""></td>
                                             <td class="result-control">
                                                 <button class="btn btn-transparent control-show"><a href="#"><i class="material-icons">add</i></a></button>
+                                                <button class="btn btn-transparent control-show"><a href="#" data-jq-dropdown="#dropdown"><i class="material-icons">more_horiz</i></a></button>
                                                 <button class="btn btn-transparent"><a href="#"><i id="discover-row-icon-0" class="material-icons">play_arrow</i></a></button>
                                             </td>
                                             <td>Obenhaus - Gotta</td>
@@ -427,6 +419,7 @@
                                             <td><img src="https://i.imgur.com/vSzGdDM.jpg" alt=""></td>
                                             <td class="result-control">
                                                 <button class="btn btn-transparent control-show"><a href="#"><i class="material-icons">add</i></a></button>
+                                                <button class="btn btn-transparent control-show"><a href="#" data-jq-dropdown="#dropdown"><i class="material-icons">more_horiz</i></a></button>
                                                 <button class="btn btn-transparent"><a href="#"><i id="discover-row-icon-1" class="material-icons">play_arrow</i></a></button>
                                             </td>
                                             <td>Bad Trip</td>
@@ -438,6 +431,7 @@
                                             <td><img src="https:\/\/i1.sndcdn.com\/artworks-000128179905-8yzzs5-t500x500.jpg" alt=""></td>
                                             <td class="result-control">
                                                 <button class="btn btn-transparent control-show"><a href="#"><i class="material-icons">add</i></a></button>
+                                                <button class="btn btn-transparent control-show"><a href="#" data-jq-dropdown="#dropdown"><i class="material-icons">more_horiz</i></a></button>
                                                 <button class="btn btn-transparent"><a href="#"><i id="discover-row-icon-2" class="material-icons">play_arrow</i></a></button>
                                             </td>
                                             <td>Wild Youth</td>
@@ -481,27 +475,27 @@
                                     <div class="playlist-art">
                                         <ul>
                                             <li>
-                                                <img src="assets/img/album-art.jpg" alt="">
+                                                <img id="playlistCover0" src="assets/img/noalbumart.png" alt="">
                                             </li>
                                             <li>
-                                                <img src="assets/img/album-art.jpg" alt="">
+                                                <img  id="playlistCover1"src="assets/img/noalbumart.png" alt="">
                                             </li>
                                             <li>
-                                                <img src="assets/img/album-art.jpg" alt="">
+                                                <img  id="playlistCover2"src="assets/img/noalbumart.png" alt="">
                                             </li>
                                             <li>
-                                                <img src="assets/img/album-art.jpg" alt="">
+                                                <img  id="playlistCover3"src="assets/img/noalbumart.png" alt="">
                                             </li>
                                         </ul>
                                     </div>
                                 </ul>
                                 <ul class="nav">
                                     <div class="playlist-header">
-                                        <h1 class="pull-left"><span class="muted">Playlist: </span>Study</h1>
+                                        <h1 class="pull-left"><span class="muted">Playlist: </span><i id="activePlaylistTitle"> Study </i></h1>
                                         <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modalRenamePlaylist"><i class="material-icons">mode_edit</i></button>
                                         <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modalDeletePlaylist"><i class="material-icons">delete</i></button>
                                         <div class="clearfix"></div>
-                                        <p>17 songs in playlist, 1 hr 14 mins.</p>
+                                        <p id="playlistInfo">17 songs in playlist, 1 hr 14 mins.</p>
                                     </div>
                                 </ul>
                             </div>
@@ -523,6 +517,7 @@
 <tr data-song-name="Get Away" data-artist-name="CHVRCHES" data-album-art="https://i.imgur.com/B2dOAgV.png" data-id="0" data-value="http://s19.pleer.com/0042fbbee67d1a986f27c8e5cc01ac65d2aff50b70f6b1adc52479a3896b905dd46d90672153f492062df888685e8a5414bb43750095125a93/4835f25552.mp3">
 <td class="result-control">
 <button class="btn btn-transparent control-show"><a href="#"><i class="material-icons">add</i></a></button>
+<button class="btn btn-transparent control-show"><a href="#" data-jq-dropdown="#dropdown"><i class="material-icons">more_horiz</i></a></button>
 <button class="btn btn-transparent"><a href="#"><i class="material-icons">pause</i></a></button>
 </td>
 <td>Get Away</td>
@@ -597,20 +592,20 @@
                 </div>
 
                 <div class="player-sliders">
-                    <div class="pull-left" id="song-current-time">1:04</div>
+                    <div class="pull-left" id="song-current-time">00:00</div>
                     <div class="song-progress pull-left">
                         <!-- Song progress slider -->
-                        <input id="song-progress-slider" data-slider-id="songProgressSlider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-tooltip="hide" data-slider-value="14" data-slider-handle="round"/>
+                        <input id="song-progress-slider" data-slider-id="songProgressSlider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-tooltip="hide" data-slider-value="0" data-slider-handle="round"/>
                         <!-- Song progress time -->
                     </div>
-                    <div class="pull-left" id="song-total-time">2:34</div>
+                    <div class="pull-left" id="song-total-time">00:00</div>
                 </div>
 
                 <!-- Volume -->
                 <div class="volume-setting pull-left">
                     <div class="pull-left"><i class="material-icons">volume_up</i></div>
                     <div id="volumeSetting">
-                        <input id="song-volume-slider" data-slider-id="songVolumeSlider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0" data-slider-handle="round"/>
+                        <input id="song-volume-slider" data-slider-id="songVolumeSlider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="100" data-slider-handle="round"/>
                     </div>
 
                 </div>
@@ -622,6 +617,19 @@
 </div> <!-- wrapper -->
 
 
+<!-- Dropdowns -->
+
+<div id="dropdown" class="jq-dropdown jq-dropdown-tip">
+    <ul class="jq-dropdown-menu">
+        <li class="purple"><a id="addToCollection" href="#"><i class="material-icons">add_circle</i> <span>Add to Collection</span></a></li>
+        <li id="appendPlaylist" class="jq-dropdown-divider"></li>
+		
+       <!-- <li><a href="#3">Item 3</a></li> -->
+
+    </ul>
+</div>
+
+    
 <!-- Modals -->
 
 <!-- Modal: Add Playlist -->
@@ -637,7 +645,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary pull-right">Add Playlist</button>
+                <button id="createPlaylistButton" type="button" class="btn btn-primary pull-right" data-dismiss="modal">Add Playlist</button>
             </div>
         </div>
     </div>
@@ -651,11 +659,11 @@
                 <h4 class="modal-title">Rename Playlist</h4>
             </div>
             <div class="modal-body">
-                <input type="text" class="form-control" id="inputRenamePlaylist" value="CurrentPlaylistName">
+                <input  type="text" class="form-control" id="inputRenamePlaylist" value="CurrentPlaylistName">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary pull-right">Rename Playlist</button>
+                <button id="renamePlaylistButton" type="button" class="btn btn-primary pull-right" data-dismiss="modal">Rename Playlist</button>
             </div>
         </div>
     </div>
@@ -673,7 +681,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary pull-right">Yes, I'm sure</button>
+                <button id="deletPlaylistButton" type="button" class="btn btn-primary pull-right" data-dismiss="modal">Yes, I'm sure</button>
             </div>
         </div>
     </div>
@@ -813,6 +821,21 @@
                                 </a>
                             </div>
                         </div>
+
+                        <hr>
+                        
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="setting-subheader pull-left">
+                                    <h5>Inverted navigaton</h5>
+                                    <small>Move the close, maximize and minimize buttons to the left</small>
+                                </div>
+                                <a class="btn btn-danger pull-right" id="invertNav">
+                                    Disabled
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -836,6 +859,7 @@
 <script type="text/javascript" src="assets/js/deps/alertify.min.js"></script>
 <script type="text/javascript" src="assets/js/deps/jquery.dataTables.js"></script>
 <script type="text/javascript" src="assets/js/deps/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="assets/js/deps/jquery.dropdown.js"></script>
 <script src="assets/js/app/ui.js"></script>
 <script src="assets/js/app/player.js"></script>
 <script src="assets/js/app/search.js"></script>
@@ -844,6 +868,7 @@
 <script src="assets/js/app/album.js"></script>
 <script src="assets/js/app/artist.js"></script>
 <script src="assets/js/app/utils.js"></script>
+<script src="assets/js/app/playlist.js"></script>
 <script src="assets/js/app/settings.js"></script>
 <script src="assets/js/app/downloader.js"></script>
 <script src="assets/js/app/version.js"></script>

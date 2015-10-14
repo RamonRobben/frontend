@@ -1,16 +1,16 @@
 #collection {
 	margin-top: 5px;
 
-	.form-control {
-		background-color: #323138;
+    .form-control {
+        background-color: lighten($main, 10%);
 		border: 1px solid rgba(white, 0);
 		font-weight: 400;
 		box-shadow: none;
 		color: white;
 		transition: all 0.1s;
 
-		&:focus {
-			background-color: #49494e;
+        &:focus {
+            background-color: lighten($main, 15%);
 			border-color: rgba(139, 96, 232, 0);
 			outline: 0;
 			box-shadow: none;

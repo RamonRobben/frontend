@@ -23,3 +23,20 @@
     border-radius: 3px;
     color: white;
 }
+
+.alertify {
+    background: lighten($main, 10%);
+    border: 1px solid rgba(white, 0.1);
+    border-radius: 6px;
+    color: rgba(white, 0.5);
+    
+    .alertify-button {
+        box-shadow: none;
+        background: lighten($main, 20%);
+        border: none;
+        margin-left: 10px;
+        &:hover {
+            background: lighten($main, 25%);
+        }
+    }
+}

@@ -40,6 +40,11 @@ var settings = {
             }
             settings.previousSelectEngine = this.value;
         });
+
+        $('#invertNav').click(function() {
+            settings.setInvertedNav(!$('#invertNav').hasClass("btn-success"));
+        });
+
         loadSettings();
         checkAuths();
         return true;
@@ -53,6 +58,7 @@ var settings = {
         settings.setScanPaths(jsonData.scanPaths);
         settings.setRestrictions(jsonData.scanRestrictions);
         settings.setExcludes(jsonData.scanExcludes);
+        settings.setInvertedNav(jsonData.invertedNav);
         return true;
 
     },
@@ -89,7 +95,8 @@ var settings = {
         var searchEngine = settings.getDefaultSearchEngine();
         var displayName = settings.getUsername();
         var avatarPath = settings.getAvatar();
-        saveSettings(scanExcludes, scanRestrictions, scanPaths, searchEngine, displayName, avatarPath);
+        var invertedNav = settings.getInvertedNav();
+        saveSettings(scanExcludes, scanRestrictions, scanPaths, searchEngine, displayName, avatarPath, invertedNav);
         alertify.success("Settings Saved.");
 
     },
@@ -102,7 +109,6 @@ var settings = {
                 paths += ",";
             }
             var path = $(this).text();
-            path = "\"" + path.replace(/\s+/, "") + "\"";
             paths += path;
 
         });
@@ -125,6 +131,9 @@ var settings = {
     getDefaultSearchEngine: function() {
             return $(".selectSearchEngine").val();
     },
+    getInvertedNav: function() {
+            return $('#invertNav').hasClass("btn-success");
+    },
     setDefaultSearchEngine: function(engine) {
 
        // $(".selectSearchEngine").val(engine);
@@ -137,6 +146,20 @@ var settings = {
     setDisplayName: function(displayName) {
         $('#inputDisplayName').val(displayName);
         $('.nav-username').html(displayName);
+    },
+    setInvertedNav: function(inversion) {
+        if (inversion) {
+            $('#invertNav').removeClass("btn-danger").addClass("btn-success");
+            $('#invertNav').html("Enabled");
+
+            $('#titlebar').addClass("left");
+        }
+        else {
+            $('#invertNav').removeClass("btn-success").addClass("btn-danger");
+            $('#invertNav').html("Disabled");
+
+            $('#titlebar').removeClass("left");
+        }
     },
     setRestrictions: function(restrictions) {
        if (restrictions.length > 0) {

@@ -2,6 +2,11 @@ $(document).ready(function () {
 
     $.ajaxSetup({ cache: true });
     alertify.success("Connected to the Aurous Network");
+
+    if (settings.getInvertedNav()) {
+        $('#titlebar').addClass("left");
+    }
+
     /* Disable drag and drop */
     $('a').on('dragstart', function (event) {
         event.preventDefault();
@@ -48,13 +53,13 @@ $(document).ready(function () {
         "oLanguage": {
             "asStripeClasses": [''],
             scrollY:        200,
-            deferRender:    true,
+            "deferRender": true,
             scroller:       true,
             "sSearch": "Filter: ",
             "sEmptyTable": "Your collection is empty. Click <a onclick=\"settings.openSettingsMenu();\" href=\"javascript:void(0);\">here</a> to configure your settings."
         },
         "columns": [
-            {"width": "25px"},
+            {"width": "50px"},
             null,
             null,
             null,
@@ -66,13 +71,13 @@ $(document).ready(function () {
         "oLanguage": {
             "asStripeClasses": [''],
             scrollY:        200,
-            deferRender:    true,
+            "deferRender": true,
             scroller:       true,
             "sSearch": "Filter: ",
             "sEmptyTable": "Your collection is empty. Click <a onclick=\"settings.openSettingsMenu();\" href=\"javascript:void(0);\">here</a> to configure your settings."
         },
         "columns": [
-            {"width": "25px"},
+            {"width": "50px"},
             null,
             null,
             null,
@@ -84,13 +89,31 @@ $(document).ready(function () {
         "oLanguage": {
             "asStripeClasses": [''],
             scrollY:        200,
-            deferRender:    true,
+            "deferRender": true,
             scroller:       true,
             "sSearch": "Filter: ",
             "sEmptyTable": "Your collection is empty. Click <a onclick=\"settings.openSettingsMenu();\" href=\"javascript:void(0);\">here</a> to configure your settings."
         },
         "columns": [
-            {"width": "25px"},
+            {"width": "50px"},
+            null,
+            null,
+            null,
+            {"width": "25px"}
+        ]
+    });
+    $('#playlistResult').DataTable({
+        paging: false,
+        "oLanguage": {
+            "asStripeClasses": [''],
+            scrollY:        200,
+            "deferRender": true,
+            scroller:       true,
+            "sSearch": "Filter: ",
+            "sEmptyTable": "This playlist is empty, try adding some songs from your collection or search results"
+        },
+        "columns": [
+            {"width": "50px"},
             null,
             null,
             null,
@@ -98,6 +121,7 @@ $(document).ready(function () {
         ]
     });
     $('.dataTables_filter input').addClass('form-control');
+
 
 
     /* Artifically repeat rows in search result */
@@ -164,8 +188,15 @@ $(document).ready(function () {
     });
 
     $('#nav-collection').click(function (event) {
-        
-        window.activeViewPort = "collection";
+
+        if ($( "#collectionNavArtists" ).hasClass( "active" )) {
+            window.activeViewPort = "artist";
+        } else if ($( "#collectionNavAlbums" ).hasClass( "active" )) {
+            window.activeViewPort = "album";
+        } else {
+            window.activeViewPort = "collection";
+        }
+
         $('#discover').fadeOut($switchPageSpeed);
         $('#playlist').fadeOut($switchPageSpeed);
         $('#nav-discover').removeClass('active');
@@ -175,7 +206,7 @@ $(document).ready(function () {
 
         event.preventDefault();
     });
-    
+
     $('.playlist-study').click(function (event) {
         $('#discover').fadeOut($switchPageSpeed);
         $('#collection').fadeOut($switchPageSpeed);
@@ -186,7 +217,7 @@ $(document).ready(function () {
 
         event.preventDefault();
     });
-	
+
 	/* Collection nav switch page */
 
 	$('#collectionNavArtists').click(function (event) {
@@ -329,6 +360,26 @@ $(document).ready(function () {
         window.previousDiscovery = aurousScript(this);
         window.previousDiscoveyId = id;
     });
+    aurousScript("#playlistResult").on('dblclick', 'tr', function (e) {
+        e.preventDefault();
+        if (window.previousPlaylist !== undefined) {
+            window.previousPlaylist.removeClass("result-now-playing");
+            aurousScript("#playlist-row-icon-" + window.previousPlaylistId).html("play_arrow");
+        }
+        var id = aurousScript(this).attr('playlist-data-id');
+        var url = aurousScript(this).attr('playlist-data-value');
+        var artist = aurousScript(this).attr('playlist-data-artist-name');
+        var song = aurousScript(this).attr('playlist-data-song-name');
+        var albumArt = aurousScript(this).attr('playlist-data-album-art');
+
+        aurousScript("#playlist-row-icon-" + id).html("pause");
+        aurousScript(this).addClass("result-now-playing");
+        aurousScript.player.changeMedia(song, artist, albumArt, url);
+        aurousScript("#playerPause").show();
+        aurousScript("#playerPlay").hide();
+        window.previousPlaylist = aurousScript(this);
+        window.previousPlaylistId = id;
+    });
 
     for (var i = 0; i < 6; i++) {
         aurousScript("#discover-row-icon-" + i).on("click", function () {
@@ -429,11 +480,11 @@ $(document).ready(function () {
 					position = mouse + scroll;
 
 				// opening menu would pass the side of the page
-				if (mouse + menu > win && menu < mouse) 
+				if (mouse + menu > win && menu < mouse)
 					position -= menu;
 
 				return position;
-			}    
+			}
 
 		};
 	})(jQuery, window);
@@ -446,7 +497,7 @@ $(document).ready(function () {
 			console.log(msg);
 		}
 	});
-	
+
     //open the lateral panel
     $('.toggle-panel a').on('click', function (event) {
         var href = $(this).attr('href');
@@ -460,7 +511,7 @@ $(document).ready(function () {
             event.preventDefault();
         }
     });
-    
+
 
 	/* Show controls while hovering table row */
 
@@ -475,14 +526,17 @@ $(document).ready(function () {
 			"opacity": 0
 		});
 	});
-    
+
     $('.selectSearchEngine').selectpicker();
-	
+
     mediaScanner.init();
     $('#nav-discover').click();
     if (typeof loadSettings == 'function') {
         settings.bind();
+        playlist.bind();
+        loadAllPlaylist();
     }
 
     versionChecker.checkForUpdate();
+
 });

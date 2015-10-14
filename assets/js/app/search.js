@@ -12,7 +12,7 @@ function search(query) {
 }
 
 function buildSearchResult(id, albumart, duration, album, title, artist, link) {
-    var html = "<tr data-id=\"{0}\" data-value=\"{1}\" data-album-art=\"{9}\" data-song-name=\"{3}\" data-artist-name=\"{4}\"><td class=\"result-control\"> <button class=\"btn btn-transparent control-show\"><a href=\"#\"><i class=\"material-icons\" id=\"control-show-{10}\">add</i></a></button> <a href=\"#\"> <button class=\"btn btn-transparent\"><a href=\"#\"><i id=\"row-icon-{2}\" class=\"material-icons\">play_arrow<\/i><\/a></button><\/td> <td>{5}<\/td> <td>{6}<\/td> <td>{7}<\/td> <td>{8}<\/td> <\/tr>".format(id, link, id,title, artist, title, artist, album, duration, albumart, id);
+    var html = "<tr data-id=\"{0}\" data-value=\"{1}\" data-album-art=\"{9}\" data-song-name=\"{3}\" data-artist-name=\"{4}\"><td class=\"result-control\"> <button class=\"btn btn-transparent control-show\"><a href=\"#\"><i class=\"material-icons\" id=\"control-show-{10}\">add</i></a></button> <a href=\"#\"> <button class=\"btn btn-transparent\"><a href=\"#\"><i id=\"row-icon-{2}\" class=\"material-icons\">play_arrow<\/i><\/a></button><button class=\"btn btn-transparent control-show\"><a href=\"#\" data-jq-dropdown=\"#dropdown\"><i class=\"material-icons\">more_horiz</i></a></button><\/td> <td>{5}<\/td> <td>{6}<\/td> <td>{7}<\/td> <td>{8}<\/td> <\/tr>".format(id, link, id,title, artist, title, artist, album, duration, albumart, id);
     return html;
 }
 
