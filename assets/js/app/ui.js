@@ -146,7 +146,9 @@ $(document).ready(function () {
 
     $('#song-volume-slider').slider({
         formatter: function (value) {
-			if(value <= 20)
+			if(value == 0)
+				$('.volume-button i').html('volume_off');
+			else if(value <= 20)
 				$('.volume-button i').html('volume_mute');
 			else if(value <= 60)
 				$('.volume-button i').html('volume_down');
@@ -158,7 +160,7 @@ $(document).ready(function () {
     });
 	
 	$('.volume-button').on('click', function(){
-		if(aurousScript.player.volume == 0){
+		if(aurousScript.player.volume == 0 && aurousScript.player.tempVolume != 0){
 			aurousScript.player.setVolume(aurousScript.player.tempVolume);
 			$('.volume-button i').html('volume_down');
 		}
