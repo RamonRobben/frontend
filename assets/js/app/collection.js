@@ -244,10 +244,40 @@ var songCollection = {
         });
     },
     appendLocalCollection: function (data) {
-        songCollection.cache = data;
+		songCollection.cache = data;
+		songCollection.currentPage = 0;
+		
         var t = $('#collectionResult').DataTable();
         t.clear().draw();
-        for (var i = 0; i < data.results.length; i++) {
+        for (var i = 0; i < songCollection.itemCount; i++){
+		    var obj = data.results[i];
+            var songId = obj.id;
+            var title = obj.title;
+            var artist = obj.artist;
+            var album = obj.album;
+            var albumArt = obj.albumArt;
+            var rawDuration = obj.duration;
+            var duration = aurousScript.player.toTime(rawDuration);
+            var link = obj.link;
+            artist =  utils.replaceAll(decodeURIComponent(artist), "+", " ");
+            title = utils.replaceAll(decodeURIComponent(title), "+", " ");
+            album = utils.replaceAll(decodeURIComponent(album), "+", " ");
+            link = utils.decodeHtml(link);
+            songCollection.appendCollectionRow( songId, albumArt, duration, album, title, artist, link);
+        }
+    },
+	appendLocalCollectionScroll: function (page) {
+		if(page <= songCollection.currentPage || page == 0)
+			return;
+		
+		var jump = page - songCollection.currentPage - 1;
+		songCollection.currentPage = page;
+		
+        data = songCollection.cache;
+		var start = (page - jump) * songCollection.itemCount;	//incase user scrolls more then one page at a time
+		var end = start + songCollection.itemCount;
+
+        for (var i = start; i < end; i++){
             var obj = data.results[i];
             var songId = obj.id;
             var title = obj.title;
@@ -263,7 +293,6 @@ var songCollection = {
             link = utils.decodeHtml(link);
             songCollection.appendCollectionRow( songId, albumArt, duration, album, title, artist, link);
         }
-
     },
     removeCollectionRow: function (id) {
         var t = $('#collectionResult').DataTable();

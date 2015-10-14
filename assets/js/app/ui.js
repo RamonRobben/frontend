@@ -146,9 +146,27 @@ $(document).ready(function () {
 
     $('#song-volume-slider').slider({
         formatter: function (value) {
+			if(value <= 20)
+				$('.volume-button i').html('volume_mute');
+			else if(value <= 60)
+				$('.volume-button i').html('volume_down');
+			else
+				$('.volume-button i').html('volume_up');
+			
             return value;
         }
     });
+	
+	$('.volume-button').on('click', function(){
+		if(aurousScript.player.volume == 0){
+			aurousScript.player.setVolume(aurousScript.player.tempVolume);
+			$('.volume-button i').html('volume_down');
+		}
+		else{
+			aurousScript.player.setVolume(0);
+			$('.volume-button i').html('volume_off');
+		}
+	});
 
     $('#song-progress-slider').slider({
         formatter: function (value) {
@@ -169,6 +187,8 @@ $(document).ready(function () {
 
         $(".viewport").height(windowHeight - 120); // .navbar height + .viewport padBottom + .viewport padTop
         $('.nav-sidebar').css('height', '100%').css('height', '-=' + playerHeight + 'px');
+		
+		songCollection.itemCount = Math.ceil($(".main").height() / 52) + 1;		// height of right side / 42pixel list item height
     }
 
     $(document).ready(SetHeight);
@@ -536,7 +556,11 @@ $(document).ready(function () {
         playlist.bind();
         loadAllPlaylist();
     }
+	
+	$('.viewport').scroll(function(e){
+		var pageNumber = Math.ceil($(this).prop('scrollTop') / $(this).height());
+		songCollection.appendLocalCollectionScroll(pageNumber);
+	});
 
     versionChecker.checkForUpdate();
-
 });
