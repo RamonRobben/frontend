@@ -34,19 +34,22 @@ aurousScript(function() {
         switch (activeViewport) {
             case "search":
                 aurousScript.player.playNextSearchResult();
-                break;
+            break;
             case "collection":
                 aurousScript.player.playNextCollection();
-                break;
+            break;
             case "artist":
                 aurousScript.player.playNextArtist();
-                break;
+            break;
             case "album":
                 aurousScript.player.playNextAlbum();
-                break;
+            break;
             case "playlist":
                 aurousScript.player.playNextPlaylist();
-                break;
+            break;
+            case "discover":
+                aurousScript.showControl('Play');
+            break;
             default:
                 text = "Looking forward to the Weekend";
         }
@@ -104,6 +107,7 @@ aurousScript(function() {
         var currentTime = aurousScript.player.getCurrentTime();
         var currentDuration = aurousScript.player.getDuration();
         var percentage = 100 * currentTime / currentDuration; //in %
+
         aurousScript("#song-current-time").html(aurousScript.player.toTime(currentTime));
         aurousScript("#song-total-time").html(aurousScript.player.toTime(currentDuration));
         aurousScript('#song-progress-slider').slider('setValue', percentage);
@@ -333,16 +337,21 @@ aurousScript(function() {
         aurousScript.player.currentTime = time;
     };
     aurousScript.player.alterPlayback = function() {
-        if (aurousScript.player.paused == true) {
+        if (aurousScript.player.paused) {
             aurousScript.player.play();
-            aurousScript("#playerPause").show();
-            aurousScript("#playerPlay").hide();
-
+            aurousScript.showControl('Pause');
         } else {
             aurousScript.player.pause();
-            aurousScript("#playerPause").hide();
-            aurousScript("#playerPlay").show();
+            aurousScript.showControl('Play');
         }
+    };
+    aurousScript.showControl = function(type) {
+        // hide reset controls.
+        aurousScript("#playerPause").hide();
+        aurousScript("#playerPlay").hide();
+
+        // current show
+        aurousScript("#player" + type).show();
     };
     aurousScript.player.reloadMedia = function() {
         aurousScript.player.load();
@@ -390,20 +399,17 @@ aurousScript(function() {
      aurousScript.player.analyser.connect(aurousScript.player.context.destination);
      aurousScript.player.frequencyData = new Uint8Array(aurousScript.player.analyser.frequencyBinCount);
      aurousScript.player.renderFrame = function() {
-     requestAnimationFrame(aurousScript.player.renderFrame);
-     // update data in frequencyData
-     aurousScript.player.analyser.getByteFrequencyData(aurousScript.player.frequencyData);
-     aurousScript.player.averageAudio = aurousScript.player.getAverageVolume(aurousScript.player.frequencyData);
-
-
+         requestAnimationFrame(aurousScript.player.renderFrame);
+         // update data in frequencyData
+         aurousScript.player.analyser.getByteFrequencyData(aurousScript.player.frequencyData);
+         aurousScript.player.averageAudio = aurousScript.player.getAverageVolume(aurousScript.player.frequencyData);
      };
      aurousScript.player.getFrequencyData = function() {
-     return aurousScript.player.frequencyData;
+         return aurousScript.player.frequencyData;
      };
 
      aurousScript.player.renderFrame();
 
     //bind it to the global scope
     window.player = aurousScript.player;
-
 });
