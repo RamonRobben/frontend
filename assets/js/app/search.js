@@ -86,7 +86,7 @@ function appendResults(i, obj, data) {
         var duration = obj.duration;
         var album = "Unknown";
         var albumArt = "assets/img/noalbumart.png";
-        if (data.track !== undefined) {
+        if (data.track !== undefined && duration == "0:00" || duration == "Unknown") {
             duration = millisToMinutesAndSeconds(data.track.duration);
         }
         if (data.track.album !== undefined) {
