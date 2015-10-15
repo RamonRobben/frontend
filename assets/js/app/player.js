@@ -8,6 +8,7 @@ aurousScript(function() {
     aurousScript.player.averageAudio = 0;
     aurousScript.player.shuffle = false;
     aurousScript.player.repeat = false;
+	aurousScript.player.tempVolume = 1;
 
     aurousScript("#playerPlay").click(function() {
         aurousScript.player.alterPlayback();
@@ -77,7 +78,9 @@ aurousScript(function() {
     };
     aurousScript('#song-volume-slider').slider().bind({
         change: function() {
-            aurousScript.player.setVolume(aurousScript('#song-volume-slider').slider('getValue') / 100);
+			var volume = aurousScript('#song-volume-slider').slider('getValue') / 100;
+			aurousScript.player.tempVolume = volume;
+            aurousScript.player.setVolume(volume);
         }
     });
     aurousScript('#song-progress-slider').on('slideStop', function(ev) {
