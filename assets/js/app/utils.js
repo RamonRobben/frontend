@@ -13,6 +13,9 @@ var utils = {
     isEmpty: function (str) {
         return (!str || 0 === str.length);
     },
+    isEqual: function(a, b) {
+        return a === b;
+    },
     escapeRegExp: function (string) {
         return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
     },
