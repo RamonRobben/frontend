@@ -296,7 +296,7 @@ $(document).ready(function () {
         window.activeViewPort = "discover";
     }
 
-    aurousScript("#searchResultsTable").on('dblclick', 'tr:not(.table-header)', function (e) {
+    aurousScript("#searchResultsTable").on('dblclick', 'tr:not(.table-header, .dataTables_empty)', function (e) {
         e.preventDefault();
         if (window.previousSearchResult !== undefined) {
             aurousScript(window.previousSearchResult).removeClass("result-now-playing");
@@ -315,7 +315,7 @@ $(document).ready(function () {
         window.previousSearchId = id;
     });
 
-    aurousScript("#collectionResult").on('dblclick', 'tr:not(.table-header)', function (e) {
+    aurousScript("#collectionResult").on('dblclick', 'tr:not(.table-header, .dataTables_empty)', function (e) {
         if (aurousScript(this).attr("data-role") == "header") {
             return false;
         }
@@ -337,7 +337,7 @@ $(document).ready(function () {
         window.previousCollectionRow = aurousScript(this);
         window.previousCollectId = id;
     });
-    aurousScript("#artistTable").on('dblclick', 'tr:not(.table-header)', function (e) {
+    aurousScript("#artistTable").on('dblclick', 'tr:not(.table-header, .dataTables_empty)', function (e) {
         if (aurousScript(this).attr("data-role") == "header") {
             return false;
         }
@@ -359,7 +359,7 @@ $(document).ready(function () {
         window.previousCollectionRow = aurousScript(this);
         window.previousCollectId = id;
     });
-    aurousScript("#topSongsTable").on('dblclick', 'tr:not(.table-header)', function (e) {
+    aurousScript("#topSongsTable").on('dblclick', 'tr:not(.table-header, .dataTables_empty)', function (e) {
         e.preventDefault();
         if (window.previousDiscovery !== undefined) {
             aurousScript(window.previousDiscovery).removeClass("result-now-playing");
@@ -378,7 +378,7 @@ $(document).ready(function () {
         window.previousDiscovery = aurousScript(this);
         window.previousDiscoveyId = id;
     });
-    aurousScript("#playlistResult").on('dblclick', 'tr:not(.table-header)', function (e) {
+    aurousScript("#playlistResult").on('dblclick', 'tr:not(.table-header, .dataTables_empty)', function (e) {
         e.preventDefault();
         if (window.previousPlaylist !== undefined) {
             window.previousPlaylist.removeClass("result-now-playing");
