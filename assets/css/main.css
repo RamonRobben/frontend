@@ -282,9 +282,7 @@
     height: 10px;
     margin-left: 0;
     background-color: #fff;
-    width: 10px;
-    height: 10px;
-    margin-left: 0
+    margin-left: -5px
 }
 #player .player-controls {
     margin-top: 15px;
@@ -362,7 +360,8 @@
 }
 #player .player-sliders #song-current-time {
     margin-right: 15px;
-    margin-left: 35px
+    margin-left: 35px;
+	width: 45px
 }
 #player .player-sliders #song-total-time {
     margin-left: 15px
@@ -394,7 +393,8 @@
 }
 #player .volume-setting i {
     color: rgba(255, 255, 255, 0.2);
-    margin-top: -5px
+    margin-top: -5px;
+	cursor: pointer
 }
 #player .volume-setting #volumeSetting {
     margin-left: 35px;
