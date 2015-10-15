@@ -80,10 +80,11 @@ li.muted a {
 
 #search-form {
     position: fixed;
+    background-color: $main;
     z-index: 100;
-    top: 50px;
+    top: 30px;
     margin-right: 15px;
-    border-radius: 6px;
+    padding-top:20px;
 
     .form-control {
         background-color: lighten($main, 10%);
