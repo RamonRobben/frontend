@@ -330,6 +330,16 @@ aurousScript(function() {
     aurousScript.player.setVolume = function(vol) {
         aurousScript.player.volume = vol;
     };
+    aurousScript.player.toggleMuted = function() {
+      var currentMuted = aurousScript.player.muted ? false : true;
+
+      // set muted.
+      aurousScript.player.muted = currentMuted;
+
+      // return current Muted Boolean
+      return currentMuted;
+    };
+
     aurousScript.player.toggleAutoPlay = function() {
         player.autoplay == false ? true : false;
     };
