@@ -154,11 +154,11 @@ $(document).ready(function () {
 				$('.volume-button i').html('volume_down');
 			else
 				$('.volume-button i').html('volume_up');
-			
+
             return value;
         }
     });
-	
+
 	$('.volume-button').on('click', function(){
 		if(aurousScript.player.volume == 0 && aurousScript.player.tempVolume != 0){
 			aurousScript.player.setVolume(aurousScript.player.tempVolume);
@@ -189,7 +189,7 @@ $(document).ready(function () {
 
         $(".viewport").height(windowHeight - 120); // .navbar height + .viewport padBottom + .viewport padTop
         $('.nav-sidebar').css('height', '100%').css('height', '-=' + playerHeight + 'px');
-		
+
 		songCollection.itemCount = Math.ceil($(".main").height() / 52) + 1;		// height of right side / 42pixel list item height
     }
 
@@ -296,7 +296,7 @@ $(document).ready(function () {
         window.activeViewPort = "discover";
     }
 
-    aurousScript("#searchResultsTable").on('dblclick', 'tr', function (e) {
+    aurousScript("#searchResultsTable").on('dblclick', 'tr:not(.table-header, .dataTables_empty)', function (e) {
         e.preventDefault();
         if (window.previousSearchResult !== undefined) {
             aurousScript(window.previousSearchResult).removeClass("result-now-playing");
@@ -310,13 +310,12 @@ $(document).ready(function () {
         var artist = aurousScript(this).attr('data-artist-name');
         var song = aurousScript(this).attr('data-song-name');
         aurousScript.player.changeMedia(song, artist, albumArt, url);
-        aurousScript("#playerPause").show();
-        aurousScript("#playerPlay").hide();
+        aurousScript.showControl('Pause');
         window.previousSearchResult = aurousScript(this);
         window.previousSearchId = id;
     });
 
-    aurousScript("#collectionResult").on('dblclick', 'tr', function (e) {
+    aurousScript("#collectionResult").on('dblclick', 'tr:not(.table-header, .dataTables_empty)', function (e) {
         if (aurousScript(this).attr("data-role") == "header") {
             return false;
         }
@@ -334,12 +333,11 @@ $(document).ready(function () {
         var artist = aurousScript(this).attr('collection-data-artist-name');
         var song = aurousScript(this).attr('collection-data-song-name');
         aurousScript.player.changeMedia(song, artist, albumArt, url);
-        aurousScript("#playerPause").show();
-        aurousScript("#playerPlay").hide();
+        aurousScript.showControl('Pause');
         window.previousCollectionRow = aurousScript(this);
         window.previousCollectId = id;
     });
-    aurousScript("#artistTable").on('dblclick', 'tr', function (e) {
+    aurousScript("#artistTable").on('dblclick', 'tr:not(.table-header, .dataTables_empty)', function (e) {
         if (aurousScript(this).attr("data-role") == "header") {
             return false;
         }
@@ -357,12 +355,11 @@ $(document).ready(function () {
         var artist = aurousScript(this).attr('artist-data-artist-name');
         var song = aurousScript(this).attr('artist-data-song-name');
         aurousScript.player.changeMedia(song, artist, albumArt, url);
-        aurousScript("#playerPause").show();
-        aurousScript("#playerPlay").hide();
+        aurousScript.showControl('Pause');
         window.previousCollectionRow = aurousScript(this);
         window.previousCollectId = id;
     });
-    aurousScript("#topSongsTable").on('dblclick', 'tr', function (e) {
+    aurousScript("#topSongsTable").on('dblclick', 'tr:not(.table-header, .dataTables_empty)', function (e) {
         e.preventDefault();
         if (window.previousDiscovery !== undefined) {
             aurousScript(window.previousDiscovery).removeClass("result-now-playing");
@@ -377,12 +374,11 @@ $(document).ready(function () {
         aurousScript("#discover-row-icon-" + id).html("pause");
         aurousScript(this).addClass("result-now-playing");
         aurousScript.player.changeMedia(song, artist, albumArt, url);
-        aurousScript("#playerPause").show();
-        aurousScript("#playerPlay").hide();
+        aurousScript.showControl('Pause');
         window.previousDiscovery = aurousScript(this);
         window.previousDiscoveyId = id;
     });
-    aurousScript("#playlistResult").on('dblclick', 'tr', function (e) {
+    aurousScript("#playlistResult").on('dblclick', 'tr:not(.table-header, .dataTables_empty)', function (e) {
         e.preventDefault();
         if (window.previousPlaylist !== undefined) {
             window.previousPlaylist.removeClass("result-now-playing");
@@ -397,8 +393,7 @@ $(document).ready(function () {
         aurousScript("#playlist-row-icon-" + id).html("pause");
         aurousScript(this).addClass("result-now-playing");
         aurousScript.player.changeMedia(song, artist, albumArt, url);
-        aurousScript("#playerPause").show();
-        aurousScript("#playerPlay").hide();
+        aurousScript.showControl('Pause');
         window.previousPlaylist = aurousScript(this);
         window.previousPlaylistId = id;
     });
@@ -410,7 +405,7 @@ $(document).ready(function () {
                 aurousScript("#discover-row-icon-" + window.previousDiscoveyId).html("play_arrow");
             }
 
-            var parent = aurousScript(this).closest('tr');
+            var parent = aurousScript(this).closest('tr:not(.table-header)');
             var id = parent.attr('data-id');
             var url = parent.attr('data-value');
             var artist = parent.attr('data-artist-name');
@@ -420,11 +415,9 @@ $(document).ready(function () {
 
             aurousScript("#discover-row-icon-" + id).html("pause");
             aurousScript.player.changeMedia(song, artist, albumArt, url);
-            aurousScript("#playerPause").show();
-            aurousScript("#playerPlay").hide();
+            aurousScript.showControl('Pause');
             window.previousDiscovery = parent;
             window.previousDiscoveyId = id;
-
         });
     }
 
@@ -558,7 +551,7 @@ $(document).ready(function () {
         playlist.bind();
         loadAllPlaylist();
     }
-	
+
 	$('.viewport').scroll(function(e){
 		var pageNumber = Math.ceil($(this).prop('scrollTop') / $(this).height());
 		songCollection.appendLocalCollectionScroll(pageNumber);
