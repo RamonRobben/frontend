@@ -1,7 +1,27 @@
 $(document).ready(function () {
+    var setVolumeButton = function(vol) {
+      var volume = vol || aurousScript('#song-volume-slider').slider('getValue'),
+          button = $('.volume-button i');
 
+      if(utils.isEqual(volume, 0)) {
+        return button.html('volume_off');
+      }
+
+      if(volume <= 20) {
+        return button.html('volume_mute');
+      }
+
+      if(volume <= 60) {
+        return button.html('volume_down');
+      }
+
+      return button.html('volume_up');
+    };
+
+    // Ajax settings and success
     $.ajaxSetup({ cache: true });
     alertify.success("Connected to the Aurous Network");
+
 
     if (settings.getInvertedNav()) {
         $('#titlebar').addClass("left");
@@ -38,7 +58,6 @@ $(document).ready(function () {
         search(query);
         event.preventDefault();
     });
-
 
     /* Sortable Table */
 
@@ -143,31 +162,37 @@ $(document).ready(function () {
      }*/
 
     /* Slider */
-
     $('#song-volume-slider').slider({
         formatter: function (value) {
-			if(value == 0)
-				$('.volume-button i').html('volume_off');
-			else if(value <= 20)
-				$('.volume-button i').html('volume_mute');
-			else if(value <= 60)
-				$('.volume-button i').html('volume_down');
-			else
-				$('.volume-button i').html('volume_up');
 
-            return value;
+          // update volume button
+			    setVolumeButton(value);
+
+          // return value.
+          return value;
         }
     });
 
-	$('.volume-button').on('click', function(){
-		if(aurousScript.player.volume == 0 && aurousScript.player.tempVolume != 0){
-			aurousScript.player.setVolume(aurousScript.player.tempVolume);
-			$('.volume-button i').html('volume_down');
-		}
-		else{
-			aurousScript.player.setVolume(0);
-			$('.volume-button i').html('volume_off');
-		}
+	$('.volume-button').on('click', function() {
+
+    // Volume change and return
+    var muted = aurousScript.player.toggleMuted(),
+
+        // Temp volume.
+        volume = aurousScript('#song-volume-slider').slider('getValue'),
+
+        // button
+        button = $('.volume-button i');
+
+    if (muted) {
+      return button.html('volume_off');
+    }
+
+    // Updated Volume generic button.
+    setVolumeButton();
+
+    // old temp volume set current volume.
+    return aurousScript.player.setVolume(aurousScript.player.tempVolume);
 	});
 
     $('#song-progress-slider').slider({
@@ -556,7 +581,7 @@ $(document).ready(function () {
 		var pageNumber = Math.ceil($(this).prop('scrollTop') / $(this).height());
 		songCollection.appendLocalCollectionScroll(pageNumber);
 	});
-    
+
     $('[data-toggle="tooltip"]').tooltip()
 
     versionChecker.checkForUpdate();
