@@ -74,13 +74,14 @@ var songCollection = {
                     var rawDuration = obj.duration;
                     var duration = aurousScript.player.toTime(rawDuration);
                     var link = obj.link;
+					var type = "artist";
                     artist = utils.replaceAll(decodeURIComponent(artist), "+", " ");
                     title = utils.replaceAll(decodeURIComponent(title), "+", " ");
                     album = utils.replaceAll(decodeURIComponent(album), "+", " ");
                     link = utils.decodeHtml(link);
                     songCollection.appendSortedArtistRow(songId, albumArt, duration, album, title, objectArtist, link);
                     // aurousScript('#collectionResult tbody').append(row);
-                   songCollection.bindSortedArtistRow(songId, title, objectArtist, albumArt, link);
+                    songCollection.bindRow(type, songId, title, objectArtist, albumArt, link);
                     aurousScript('#currentSortedArtist').html(objectArtist);
                 }
 
@@ -105,12 +106,13 @@ var songCollection = {
                     var duration = aurousScript.player.toTime(rawDuration);
                     var link = obj.link;
                     var artist = obj.artist;
+					var type = "album";
                     artist = utils.replaceAll(decodeURIComponent(artist), "+", " ");
                     title = utils.replaceAll(decodeURIComponent(title), "+", " ");
                     link = utils.decodeHtml(link);
                     songCollection.appendSortedAlbum(songId, albumArt, duration, objectAlbum, title, artist, link);
                     // aurousScript('#collectionResult tbody').append(row);
-                    songCollection.bindSortedAlbumRow(songId, title, artist, albumArt, link);
+                    songCollection.bindRow(type, songId, title, artist, albumArt, link);
                     aurousScript('#currentSortedAlbum').html(objectAlbum);
                 }
 
@@ -180,68 +182,51 @@ var songCollection = {
         parent.attr('artist-data-song-name', title);
         parent.attr('artist-data-artist-name', artist);
     },
-    bindSortedArtistRow:  function (i, title, artist, albumArt, url) {
-        aurousScript("#artist-row-icon-" + i).on("click", function () {
-            if (window.previousCollectionRow !== undefined) {
-                window.previousCollectionRow.removeClass("result-now-playing");
-                aurousScript("#artist-row-icon-" + window.previousCollectId).html("play_arrow");
-            }
-            var parent = aurousScript(this).closest('tr');
+    bindRow: function (type, i, title, artist, albumArt, url) {
+        aurousScript("#" + type + "-row-icon-" + i).on("click", function () {
+			var parent = aurousScript(this).closest('tr');
             parent.addClass("result-now-playing");
-            var id = parent.attr('artist-data-id');
-            window.currentCollectionId = id;
-            aurousScript("#artist-row-icon-" + id).html("pause");
+            var id = parent.attr(type + '-data-id');
+			
+			if(id != window.previousCollectId){
+				if (window.previousCollectionRow !== undefined) {
+					window.previousCollectionRow.removeClass("result-now-playing");
+					aurousScript("#" + type + "-row-icon-" + window.previousCollectId).html("play_arrow");
+				}
+				
+				window.currentCollectionId = id;
+				aurousScript("#" + type + "-row-icon-" + id).html("pause");
 
-            var url = parent.attr('artist-data-value');
-            aurousScript.player.changeMedia(title, artist, albumArt, url);
-            aurousScript("#playerPause").show();
-            aurousScript("#playerPlay").hide();
-            window.previousCollectionRow = parent;
-            window.previousCollectId = id;
-
-        });
-    },
-    bindSortedAlbumRow:  function (i, title, artist, albumArt, url) {
-        aurousScript("#album-row-icon-" + i).on("click", function () {
-            if (window.previousCollectionRow !== undefined) {
-                window.previousCollectionRow.removeClass("result-now-playing");
-                aurousScript("#album-row-icon-" + window.previousCollectId).html("play_arrow");
-            }
-            var parent = aurousScript(this).closest('tr');
-            parent.addClass("result-now-playing");
-            var id = parent.attr('album-data-id');
-            window.currentCollectionId = id;
-            aurousScript("#album-row-icon-" + id).html("pause");
-
-            var url = parent.attr('album-data-value');
-            aurousScript.player.changeMedia(title, artist, albumArt, url);
-            aurousScript("#playerPause").show();
-            aurousScript("#playerPlay").hide();
-            window.previousCollectionRow = parent;
-            window.previousCollectId = id;
-
-        });
-    },
-    bindCollectionRow: function (i, title, artist, albumArt, url) {
-        aurousScript("#collection-row-icon-" + i).on("click", function () {
-            if (window.previousCollectionRow !== undefined) {
-                window.previousCollectionRow.removeClass("result-now-playing");
-                aurousScript("#collection-row-icon-" + window.previousCollectId).html("play_arrow");
-            }
-            var parent = aurousScript(this).closest('tr');
-            parent.addClass("result-now-playing");
-            var id = parent.attr('collection-data-id');
-            window.currentCollectionId = id;
-            aurousScript("#collection-row-icon-" + id).html("pause");
-
-            var url = parent.attr('collection-data-value');
-            aurousScript.player.changeMedia(title, artist, albumArt, url);
-            aurousScript("#playerPause").show();
-            aurousScript("#playerPlay").hide();
-            window.previousCollectionRow = parent;
-            window.previousCollectId = id;
-
-        });
+				var url = parent.attr(type + '-data-value');
+				aurousScript.player.changeMedia(title, artist, albumArt, url);
+				aurousScript("#playerPause").show();
+				aurousScript("#playerPlay").hide();
+				window.previousCollectionRow = parent;
+				window.previousCollectId = id;
+			}
+			else{	//checking if the same item clicked
+				if(aurousScript.player.paused){
+					window.previousCollectionRow.addClass("result-now-playing");
+					aurousScript("#" + type + "-row-icon-" + id).html("pause");
+					window.currentCollectionId = id;
+		
+					aurousScript("#playerPause").show();
+					aurousScript("#playerPlay").hide();
+				}
+				else{
+					window.previousCollectionRow.removeClass("result-now-playing");
+					aurousScript("#" + type + "-row-icon-" + id).html("play_arrow");
+							
+					aurousScript("#playerPause").hide();
+					aurousScript("#playerPlay").show();
+				}
+				
+				aurousScript.player.alterPlayback();
+				window.currentCollectionId = id;
+				window.previousCollectionRow = parent;
+				window.previousCollectId = id;
+			}
+		});
     },
     appendLocalCollection: function (data) {
 		songCollection.cache = data;
@@ -323,7 +308,8 @@ var songCollection = {
         parent.attr('collection-data-album-art', albumart);
         parent.attr('collection-data-song-name', title);
         parent.attr('collection-data-artist-name', artist);
-        songCollection.bindCollectionRow(id, title, artist, albumart, link);
+		var type = "collection";
+        songCollection.bindRow(type, id, title, artist, albumart, link);
         return true;
     },
     appendCollectionRow: function (id, albumart, duration, album, title, artist, link) {
@@ -347,7 +333,8 @@ var songCollection = {
         parent.attr('collection-data-album-art', albumart);
         parent.attr('collection-data-song-name', title);
         parent.attr('collection-data-artist-name', artist);
-        songCollection.bindCollectionRow(id, title, artist, albumart, link);
+		var type = "collection";
+        songCollection.bindRow(type, id, title, artist, albumart, link);
         return true;
     },
 
