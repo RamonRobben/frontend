@@ -563,6 +563,8 @@ $(document).ready(function () {
 		var pageNumber = Math.ceil($(this).prop('scrollTop') / $(this).height());
 		songCollection.appendLocalCollectionScroll(pageNumber);
 	});
+    
+    $('[data-toggle="tooltip"]').tooltip()
 
     versionChecker.checkForUpdate();
 });
