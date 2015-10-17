@@ -18,3 +18,5 @@ build.xml
 /nbproject/
 /build/
 /.idea/
+
+node_modules/
