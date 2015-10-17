@@ -64,7 +64,7 @@
         background-color: rgba(white, 1);
         width: 10px;
         height: 10px;
-        margin-left: 0;
+        margin-left: -5px;
     }
 	
 	.form-control {
@@ -173,6 +173,7 @@
         #song-current-time {
             margin-right: 15px;
             margin-left: 35px;
+			width: 45px;
         }
 
         #song-total-time {
