@@ -50,7 +50,7 @@
                 </li>
 
             </ul>
-			
+
             <ul id="playlistContainer" class="nav nav-playlist">
 			  <li class="nav-title"><div class="pull-right"><a href="#"><i class="material-icons">chevron_right</i></a></div>PLAYLIST</li>
 
@@ -115,7 +115,7 @@
                                 <!-- result, sortable table -->
                                 <table class='table sortable table-hover' id="collectionResult">
                                     <thead>
-                                    <tr data-role="header">
+                                    <tr data-role="header" class="table-header">
                                         <th></th>
                                         <th data-defaultsign="nospan" data-defaultsort="asc">SONG</th>
                                         <th>ARTIST</th>
@@ -302,7 +302,7 @@
 
                                         <table class='table sortable table-hover' id="artistTable">
                                             <thead>
-                                            <tr data-role="header">
+                                            <tr data-role="header" class="table-header">
                                                 <th></th>
                                                 <th data-defaultsign="nospan" data-defaultsort="asc">SONG</th>
                                                 <th>ARTIST</th>
@@ -393,14 +393,14 @@
                                 <div class="result" id="top-result">
                                     <table id="topSongsTable" class="table table-hover display">
                                         <thead>
-                                        <tr>
-                                            <th style="width: 75px"></th>
-                                            <th style="width: 120px"></th>
-                                            <th>SONG</th>
-                                            <th>ARTIST</th>
-                                            <th>ALBUM</th>
-                                            <th><i class="material-icons">access_time</i></th>
-                                        </tr>
+                                            <tr class="table-header">
+                                                <th style="width: 75px"></th>
+                                                <th style="width: 120px"></th>
+                                                <th>SONG</th>
+                                                <th>ARTIST</th>
+                                                <th>ALBUM</th>
+                                                <th><i class="material-icons">access_time</i></th>
+                                            </tr>
                                         </thead>
                                         <tbody>
                                         <tr data-song-name="Obenhaus - Gotta" data-artist-name="Goiko Obenhaus" data-album-art="https://i1.sndcdn.com//artworks-000115464710-6br5gk-t500x500.jpg" data-id="0" data-value="https://aurous.me/featured/1.mp3">
@@ -452,7 +452,7 @@
                             <div class="search-result result" id="search-result">
                                 <table id="searchResultsTable" class="table table-hover">
                                     <thead>
-                                    <tr>
+                                    <tr class="table-header">
                                         <th style="width: 120px"></th>
                                         <th>SONG</th>
                                         <th>ARTIST</th>
@@ -504,7 +504,7 @@
                                 <!-- result, sortable table -->
                                 <table class='table sortable table-hover' id="playlistResult">
                                     <thead>
-                                    <tr data-role="header">
+                                    <tr data-role="header" class="table-header">
                                         <th></th>
                                         <th data-defaultsign="nospan" data-defaultsort="asc">SONG</th>
                                         <th>ARTIST</th>
@@ -570,7 +570,7 @@
                 <div class="player-controls">
                     <!-- Repeat -->
                     <div class="col-xs-1 player-control-first">
-                        <a href="#" class="player-control repeat" id="playerRepeat"><i class="material-icons">repeat</i></a>
+                        <a href="#" class="player-control repeat" id="playerRepeat" data-toggle="tooltip" data-placement="top" title="Future feature"><i class="material-icons">repeat</i></a>
                     </div>
                     <!-- Skip Previous -->
                     <div class="col-xs-3 text-right">
@@ -587,7 +587,7 @@
                     </div>
                     <!-- Shuffle -->
                     <div class="col-xs-1 player-control-last">
-                        <a href="#" class="player-control shuffle" id="playerShuffle"><i class="material-icons">shuffle</i></a>
+                        <a href="#" class="player-control shuffle" id="playerShuffle" data-toggle="tooltip" data-placement="top" title="Future feature"><i class="material-icons">shuffle</i></a>
                     </div>
                 </div>
 
@@ -623,13 +623,13 @@
     <ul class="jq-dropdown-menu">
         <li class="purple"><a id="addToCollection" href="#"><i class="material-icons">add_circle</i> <span>Add to Collection</span></a></li>
         <li id="appendPlaylist" class="jq-dropdown-divider"></li>
-		
+
        <!-- <li><a href="#3">Item 3</a></li> -->
 
     </ul>
 </div>
 
-    
+
 <!-- Modals -->
 
 <!-- Modal: Add Playlist -->
@@ -824,11 +824,11 @@
                         </div>
 
                         <hr>
-                        
+
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="setting-subheader pull-left">
-                                    <h5>Inverted navigaton</h5>
+                                    <h5>Inverted navigation</h5>
                                     <small>Move the close, maximize and minimize buttons to the left</small>
                                 </div>
                                 <a class="btn btn-danger pull-right" id="invertNav">
