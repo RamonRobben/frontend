@@ -40,4 +40,13 @@
             list-style: none;
         }
     }
+	
+	.form-control {
+		background-color: #202031;
+		border: 1px solid rgba(255,255,255,0);
+		font-weight: 400;
+		box-shadow: none;
+		color: white;
+		transition: all 0.1s;
+	}
 }
