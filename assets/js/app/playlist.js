@@ -149,7 +149,8 @@ var playlist = {
         });
     },
     createPlaylist: function() {
-        var playListName = $('#inputAddPlaylist').val();
+        var input = $('#inputAddPlaylist');
+        var playListName = input.val();
         if (!utils.isEmpty(playListName)) {
             if (typeof createLocalPlaylist == 'function') {
                 createLocalPlaylist(playListName);
@@ -159,9 +160,9 @@ var playlist = {
                 var item = '<li><a id="playlistAddTo-{1}" href="#">{0}</a></li>'.format(playListName, index);
                 $("#appendPlaylist").after(item);
                 playlist.bindPlaylist(playListName, index);
-
             }
         }
+		input.val("");
     },
     bindPlaylist: function(name, index) {
 
