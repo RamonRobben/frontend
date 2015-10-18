@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/afang/frontend#readme",
   "devDependencies": {
+    "browser-sync": "^2.9.11",
     "gulp": "^3.9.0",
     "gulp-sass": "^2.0.4"
   }
