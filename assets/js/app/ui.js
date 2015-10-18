@@ -586,3 +586,15 @@ $(document).ready(function () {
 
     versionChecker.checkForUpdate();
 });
+
+var waitMessage = {
+    wait: aurousScript("#loading"),
+    show: function(message){
+        this.wait.show();
+        this.wait.find("p").html(message + ", please wait.");
+    },
+    hide: function(){
+        this.wait.hide();
+        this.wait.find("p").html("-");
+    }
+}

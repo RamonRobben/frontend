@@ -6,9 +6,10 @@ function search(query) {
     coreSearch(query);
     aurousScript("#discoverIntro").remove();
     aurousScript("#alertError").hide();
-    aurousScript("#loading").show();
     aurousScript("#search-result").hide();
     aurousScript("#search-results-count").hide();
+    
+    waitMessage.show("Loading the search results");
 }
 
 function buildSearchResult(id, albumart, duration, album, title, artist, link) {
@@ -17,7 +18,8 @@ function buildSearchResult(id, albumart, duration, album, title, artist, link) {
 }
 
 function handleException(message) {
-    aurousScript("#loading").hide();
+    waitMessage.hide();
+    
     aurousScript("#search-result").hide();
     aurousScript("#search-results-count").hide();
     aurousScript("#alertError").html('No result found for <strong><span id="searchQuery">' +message+ '</span></strong>. Please check your spelling or try fewer keywords.');
@@ -126,7 +128,8 @@ function searchCallback(message) {
         lookupRemote(i, obj)
     }
 
-    aurousScript("#loading").hide();
+    waitMessage.hide();
+    
     aurousScript("#search-result").show();
     aurousScript("#search-results-count").show();
     window.activeViewPort = "search";
