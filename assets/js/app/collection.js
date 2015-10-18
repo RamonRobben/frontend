@@ -2,8 +2,6 @@
  * Created by Andrew on 9/12/2015.
  */
 var songCollection = {
-
-
     songData: '',
     needsUpdate: true,
     artistNeedsUpdate: true,
@@ -25,8 +23,6 @@ var songCollection = {
                 alertify.success("Loaded cached db");
                 return true;
             }
-
-
         }
     },
     populateArtist: function(data) {
@@ -40,7 +36,6 @@ var songCollection = {
             objectArtist =  utils.replaceAll(decodeURIComponent(objectArtist), "+", " ");
             artistInfo.fetchArtistArt(objectArtist, totalSongs);
         }
-
     },
     populateAlbums: function(data) {
         $('#albumSortList').html("");
@@ -352,6 +347,7 @@ var songCollection = {
     },
     completeScanning: function () {
         mediaScanner.scanningActive = false;
+        waitMessage.hide();
         alertify.success("Media Scanned from Disk");
     }
 };
