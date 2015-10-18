@@ -2,6 +2,7 @@
  * Created by Andrew on 9/12/2015.
  */
 var mediaScanner = {
+
     scanPaths: '',
     scanningActive: false,
     scanFilters: '',
@@ -12,7 +13,6 @@ var mediaScanner = {
         }
         mediaScanner.scanningActive = true;
         alertify.success("Scanning media from your disk, please wait");
-        waitMessage.show("Scanning local libraries");
         if (typeof scanMedia == 'function') {
             scanMedia();
         }
@@ -24,13 +24,11 @@ var mediaScanner = {
     scannerErrorCallback: function () {
         mediaScanner.scanningActive = false;
         songCollection.needsUpdate = false;
-        waitMessage.hide();
         alertify.error("Unable to scan due to lack of paths. Please check your settings.");
     },
     completeScanning: function() {
         mediaScanner.scanningActive = false;
         songCollection.needsUpdate = true;
-        waitMessage.hide();
         alertify.success("Scanning media complete.");
         songCollection.loadAllSongs();
     }
