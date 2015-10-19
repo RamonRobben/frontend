@@ -11,8 +11,12 @@ var mediaScanner = {
         if (mediaScanner.scanningActive) {
             return false;
         }
+        
         mediaScanner.scanningActive = true;
+        
         alertify.success("Scanning media from your disk, please wait");
+        waitMessage.show("Scanning local libraries");
+        
         if (typeof scanMedia == 'function') {
             scanMedia();
         }
@@ -22,11 +26,15 @@ var mediaScanner = {
         alertify.success(size);
     },
     scannerErrorCallback: function () {
+        waitMessage.hide();
+        
         mediaScanner.scanningActive = false;
         songCollection.needsUpdate = false;
         alertify.error("Unable to scan due to lack of paths. Please check your settings.");
     },
     completeScanning: function() {
+        waitMessage.hide();
+        
         mediaScanner.scanningActive = false;
         songCollection.needsUpdate = true;
         alertify.success("Scanning media complete.");
