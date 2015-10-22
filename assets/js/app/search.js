@@ -66,12 +66,12 @@ function bindData(i, title, artist ,albumArt, url) {
         var id = parent.attr('data-id');
         aurousScript( "#row-icon-" + id).html("pause");
         var url = parent.attr('data-value');
-        aurousScript.player.changeMedia(title, artist, albumArt,  url);
+        aurousScript.player.changeMedia(title, artist, albumArt,  url, true);
         aurousScript( "#playerPause" ).show();
         aurousScript( "#playerPlay").hide();
         window.previousSearchResult = parent;
         window.previousSearchId = id;
-
+		
     });
 }
 

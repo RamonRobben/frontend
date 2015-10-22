@@ -334,7 +334,7 @@ $(document).ready(function () {
         var url = aurousScript(this).attr('data-value');
         var artist = aurousScript(this).attr('data-artist-name');
         var song = aurousScript(this).attr('data-song-name');
-        aurousScript.player.changeMedia(song, artist, albumArt, url);
+        aurousScript.player.changeMedia(song, artist, albumArt, url, true);
         aurousScript.showControl('Pause');
         window.previousSearchResult = aurousScript(this);
         window.previousSearchId = id;
@@ -585,6 +585,7 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip()
 
     versionChecker.checkForUpdate();
+
 });
 
 var waitMessage = {
