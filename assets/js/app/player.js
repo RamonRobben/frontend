@@ -221,7 +221,7 @@ aurousScript(function() {
         var url = parent.attr('data-value');
         var artist = parent.attr('data-artist-name');
         var song = parent.attr('data-song-name');
-        aurousScript.player.changeMedia(song, artist, albumArt, url);
+        aurousScript.player.changeMedia(song, artist, albumArt, url, true);
         aurousScript("#playerPause").show();
         aurousScript("#playerPlay").hide();
         window.previousSearchResult = aurousScript(nextRow);
@@ -240,7 +240,7 @@ aurousScript(function() {
         var url = parent.attr('data-value');
         var artist = parent.attr('data-artist-name');
         var song = parent.attr('data-song-name');
-        aurousScript.player.changeMedia(song, artist, albumArt, url);
+        aurousScript.player.changeMedia(song, artist, albumArt, url, true);
         aurousScript("#playerPause").show();
         aurousScript("#playerPlay").hide();
         window.previousSearchResult = aurousScript(nextRow);
@@ -366,15 +366,37 @@ aurousScript(function() {
     aurousScript.player.reloadMedia = function() {
         aurousScript.player.load();
     };
-    aurousScript.player.changeMedia = function(title, artist, albumArt, url) {
+    aurousScript.player.changeMedia = function(title, artist, albumArt, url, isSearchResult) {
+		isSearchResult = isSearchResult || false;
+		if (isSearchResult) {
+			var play_url = 'https://play.google.com/store/search?q={0}&c=music';
+			title = title.replace("YouTube",'');
+			artist = artist.replace("YouTube",'');
+			var combinedUrl = encodeURIComponent(title + " - " + artist);
+			play_url = play_url.format(combinedUrl);
+			  //inject link into 
+            var secondary_actions_container = document.getElementById('findOnGooglePlay');
+
+        secondary_actions_container.innerHTML = '<a id="playLink" href="'+play_url+'" target="_blank">&#x266b; Find on Google Music</a>';
+		 $("#playLink").click(function () {
+        var addressValue = $(this).attr("href");
+		if (typeof openUrl == 'function') {
+		openUrl(addressValue);
+		}
+		});
+			
+		} else {
+			   var secondary_actions_container = document.getElementById('findOnGooglePlay');
+			    secondary_actions_container.innerHTML = '';
+		}
         aurousScript.player.pause();
         aurousScript.player.currentTime = 0;
         aurousScript.player.source.src = url;
         aurousScript.player.load();
         aurousScript.player.play();
         aurousScript("#currentAlbumArt").attr("src", albumArt);
-        aurousScript("#currentTitle").html(title);
-        aurousScript("#currentArtist").html(artist);
+        aurousScript("#currentTitle").text(title);
+        aurousScript("#currentArtist").text(artist);
         aurousScript("#playerPause").show();
         aurousScript("#playerPlay").hide();
         if (window.activeViewPort == "collection" || window.activeViewPort == "artist" || window.activeViewPort == "album") {
